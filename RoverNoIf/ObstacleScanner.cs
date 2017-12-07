@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using RoverNoIf.Results;
 
 namespace RoverNoIf
@@ -22,7 +21,7 @@ namespace RoverNoIf
 
             foreach (var obstactle in obstacles)
             {
-                _obstacles[obstactle.Position.X, obstactle.Position.Y] = _ => new Result.Blocked(obstactle);
+                _obstacles[obstactle.Position.X, obstactle.Position.Y] = rover => new Result.Blocked(obstactle, rover);
             }
         }
 

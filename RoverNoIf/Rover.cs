@@ -26,21 +26,22 @@ namespace RoverNoIf
             return new Rover(Position, heading, ObstacleScanner);
         }
 
-        public Rover Move(string commands)
+        public Result Move(string commands)
         {
             return Move(this, commands);
         }
 
-        public static Rover Move(Rover rover, string commands)
+        public static Result Move(Rover rover, string commands)
         {
+            Result result = null;
             foreach (var c in commands)
             {
-                var result = CommandsMapping.Commands[c].Apply(rover);
+                result = CommandsMapping.Commands[c].Apply(rover);
 
                 rover = ((Result.Success)result).Rover;
             }
 
-            return rover;
+            return result;
         }
     }
 }

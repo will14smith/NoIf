@@ -2,13 +2,17 @@
 {
     public abstract class Result
     {
+        public Rover Rover { get; }
+
+        protected Result(Rover rover)
+        {
+            Rover = rover;
+        }
+
         public class Success : Result
         {
-            public Rover Rover { get; }
-
-            public Success(Rover rover)
+            public Success(Rover rover) : base(rover)
             {
-                Rover = rover;
             }
         }
 
@@ -16,7 +20,7 @@
         {
             public Obstacle Obstacle { get; }
 
-            public Blocked(Obstacle obstacle)
+            public Blocked(Obstacle obstacle, Rover rover) : base(rover)
             {
                 Obstacle = obstacle;
             }

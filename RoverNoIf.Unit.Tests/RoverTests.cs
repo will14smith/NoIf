@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using RoverNoIf.Results;
+using Xunit;
 
 namespace RoverNoIf.Unit.Tests
 {
@@ -52,8 +53,9 @@ namespace RoverNoIf.Unit.Tests
 
             var after = initial.Move(command);
 
-            after.ShouldBeAt(new Position(Pluto, expectedX, expectedY));
-            after.ShouldHaveHeading(expectedHeading);
+            Assert.IsType<Result.Success>(after);
+            after.Rover.ShouldBeAt(new Position(Pluto, expectedX, expectedY));
+            after.Rover.ShouldHaveHeading(expectedHeading);
         }
 
         [Fact]
@@ -62,10 +64,11 @@ namespace RoverNoIf.Unit.Tests
             var bumpyPlanet = new ObstacleScanner(Pluto, new[] { new Obstacle(new Position(Pluto, 2, 0)) });
             var initial = new Rover(new Position(Pluto, 0, 0), Heading.North, bumpyPlanet);
 
-            var after = initial.Move("FF");
+            var after = initial.Move("FFF");
 
-            after.ShouldBeAt(new Position(Pluto, 1, 0));
-            after.ShouldHaveHeading(Heading.North);
+            Assert.IsType<Result.Blocked>(after);
+            after.Rover.ShouldBeAt(new Position(Pluto, 1, 0));
+            after.Rover.ShouldHaveHeading(Heading.North);
         }
     }
 }
