@@ -4,17 +4,17 @@ namespace RoverNoIf.Commands
 {
     public class MoveCommand : Command
     {
-        private static readonly IReadOnlyDictionary<Heading, Position> MovementOffsets = new Dictionary<Heading, Position>
+        private static readonly IReadOnlyDictionary<Heading, PositionDelta> MovementOffsets = new Dictionary<Heading, PositionDelta>
         {
-            { Heading.North, new Position(1, 0) },
-            { Heading.East, new Position(0, 1) },
-            { Heading.South, new Position(-1, 0) },
-            { Heading.West, new Position(0, -1) },
+            { Heading.North, new PositionDelta(1, 0) },
+            { Heading.East, new PositionDelta(0, 1) },
+            { Heading.South, new PositionDelta(-1, 0) },
+            { Heading.West, new PositionDelta(0, -1) },
         };
-        private static readonly IReadOnlyDictionary<MoveDirection, Position> DirectionTransforms = new Dictionary<MoveDirection, Position>
+        private static readonly IReadOnlyDictionary<MoveDirection, PositionDelta> DirectionTransforms = new Dictionary<MoveDirection, PositionDelta>
         {
-            { MoveDirection.Forward, new Position(1, 1) },
-            { MoveDirection.Backward, new Position(-1, -1) },
+            { MoveDirection.Forward, new PositionDelta(1, 1) },
+            { MoveDirection.Backward, new PositionDelta(-1, -1) },
         };
 
         private readonly MoveDirection _direction;
@@ -29,10 +29,22 @@ namespace RoverNoIf.Commands
             var offset = MovementOffsets[rover.Heading];
             var transform = DirectionTransforms[_direction];
 
-            var delta = new Position(offset.X * transform.X, offset.Y * transform.Y);
-            var newPosition = new Position(rover.Position.X + delta.X, rover.Position.Y + delta.Y);
+            var delta = new PositionDelta(offset.X * transform.X, offset.Y * transform.Y);
+            var newPosition = new Position(rover.Position.Planet, rover.Position.X + delta.X, rover.Position.Y + delta.Y);
 
             return new Rover(newPosition, rover.Heading);
+        }
+
+        private class PositionDelta
+        {
+            public int X { get; }
+            public int Y { get; }
+
+            public PositionDelta(int x, int y)
+            {
+                X = x;
+                Y = y;
+            }
         }
     }
 }

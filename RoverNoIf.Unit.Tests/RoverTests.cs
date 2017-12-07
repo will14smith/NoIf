@@ -4,10 +4,12 @@ namespace RoverNoIf.Unit.Tests
 {
     public class RoverTests
     {
+        public static readonly Planet Pluto = new Planet(100, 100);
+
         [Fact]
         public void InitialPosition()
         {
-            var position = new Position(0, 0);
+            var position = new Position(Pluto, 0, 0);
             var heading = Heading.North;
             var rover = new Rover(position, heading);
 
@@ -37,11 +39,11 @@ namespace RoverNoIf.Unit.Tests
         
         public void Move(int initialX, int initialY, Heading initialHeading, string command, int expectedX, int expectedY, Heading expectedHeading)
         {
-            var initial = new Rover(new Position(initialX, initialY), initialHeading);
+            var initial = new Rover(new Position(Pluto, initialX, initialY), initialHeading);
 
             var after = initial.Move(command);
 
-            after.ShouldBeAt(new Position(expectedX, expectedY));
+            after.ShouldBeAt(new Position(Pluto, expectedX, expectedY));
             after.ShouldHaveHeading(expectedHeading);
         }
     }

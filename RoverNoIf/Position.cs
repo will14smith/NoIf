@@ -2,11 +2,15 @@
 {
     public class Position
     {
+        public Planet Planet { get; }
+
         public int X { get; }
         public int Y { get; }
 
-        public Position(int x, int y)
+        public Position(Planet planet, int x, int y)
         {
+            Planet = planet;
+
             X = x;
             Y = y;
         }
