@@ -11,7 +11,9 @@ namespace RoverNoIf.Commands
             Commands = new Dictionary<char, Command>
             {
                 { 'F', new MoveCommand(MoveDirection.Forward) },
-                { 'B', new MoveCommand(MoveDirection.Backward) }
+                { 'B', new MoveCommand(MoveDirection.Backward) },
+                { 'L', new TurnCommand(TurnDirection.Left) },
+                { 'R', new TurnCommand(TurnDirection.Right) },
             };
         }
     }

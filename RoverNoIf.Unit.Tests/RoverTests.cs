@@ -25,6 +25,15 @@ namespace RoverNoIf.Unit.Tests
         [InlineData(0, 0, Heading.South, "B", 1, 0, Heading.South)]
         [InlineData(0, 1, Heading.West, "F", 0, 0, Heading.West)]
         [InlineData(0, 0, Heading.West, "B", 0, 1, Heading.West)]
+
+        [InlineData(1, 1, Heading.North, "L", 1, 1, Heading.East)]
+        [InlineData(1, 1, Heading.North, "R", 1, 1, Heading.West)]
+        [InlineData(1, 1, Heading.East, "L", 1, 1, Heading.South)]
+        [InlineData(1, 1, Heading.East, "R", 1, 1, Heading.North)]
+        [InlineData(1, 1, Heading.South, "L", 1, 1, Heading.West)]
+        [InlineData(1, 1, Heading.South, "R", 1, 1, Heading.East)]
+        [InlineData(1, 1, Heading.West, "L", 1, 1, Heading.North)]
+        [InlineData(1, 1, Heading.West, "R", 1, 1, Heading.South)]
         
         public void Move(int initialX, int initialY, Heading initialHeading, string command, int expectedX, int expectedY, Heading expectedHeading)
         {
