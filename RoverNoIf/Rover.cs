@@ -33,15 +33,16 @@ namespace RoverNoIf
 
         public static CommandResult Move(Rover rover, string commands)
         {
-            Result result = null;
-            foreach (var c in commands)
+            CommandResult Reduce(Iterator i, CommandResult r, char c)
             {
-                result = CommandsMapping.Commands[c].Apply(rover);
+                var result = CommandsMapping.Commands[c].Apply(r.Rover);
 
-                rover = result.Rover;
+                var next = result.GetNextIterator(i);
+
+                return next.Reduce(result, Reduce);
             }
 
-            return result;
+            return Iterator.Create(commands).Reduce<CommandResult>(new CommandResult.Success(rover), Reduce);
         }
     }
 }
