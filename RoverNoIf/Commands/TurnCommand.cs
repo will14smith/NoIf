@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using RoverNoIf.Results;
 
 namespace RoverNoIf.Commands
 {
@@ -18,7 +19,7 @@ namespace RoverNoIf.Commands
             _direction = direction;
         }
 
-        public override Rover Apply(Rover rover)
+        public override Result Apply(Rover rover)
         {
             var delta = DirectionDeltas[_direction];
 
@@ -27,7 +28,7 @@ namespace RoverNoIf.Commands
 
             var newHeading = (Heading)newHeadingAsInt;
 
-            return rover.WithHeading(newHeading);
+            return new Result.Success(rover.WithHeading(newHeading));
         }
     }
 }

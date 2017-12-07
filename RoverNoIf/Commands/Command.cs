@@ -1,7 +1,9 @@
-﻿namespace RoverNoIf.Commands
+﻿using RoverNoIf.Results;
+
+namespace RoverNoIf.Commands
 {
     public abstract class Command
     {
-        public abstract Rover Apply(Rover rover);
+        public abstract Result Apply(Rover rover);
     }
 }

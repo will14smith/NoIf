@@ -1,4 +1,5 @@
 ﻿using RoverNoIf.Commands;
+using RoverNoIf.Results;
 
 namespace RoverNoIf
 {
@@ -8,7 +9,7 @@ namespace RoverNoIf
         public Heading Heading { get; }
 
         public ObstacleScanner ObstacleScanner { get; }
-        
+
         public Rover(Position position, Heading heading, ObstacleScanner obstacleScanner)
         {
             Position = position;
@@ -34,7 +35,9 @@ namespace RoverNoIf
         {
             foreach (var c in commands)
             {
-                rover = CommandsMapping.Commands[c].Apply(rover);
+                var result = CommandsMapping.Commands[c].Apply(rover);
+
+                rover = ((Result.Success)result).Rover;
             }
 
             return rover;

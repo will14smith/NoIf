@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using RoverNoIf.Results;
 
 namespace RoverNoIf.Commands
 {
@@ -24,7 +25,7 @@ namespace RoverNoIf.Commands
             _direction = direction;
         }
 
-        public override Rover Apply(Rover rover)
+        public override Result Apply(Rover rover)
         {
             var offset = MovementOffsets[rover.Heading];
             var transform = DirectionTransforms[_direction];
@@ -37,8 +38,8 @@ namespace RoverNoIf.Commands
                 planet: planet,
                 x: (newPosition.X + planet.Width) % planet.Width,
                 y: (newPosition.Y + planet.Height) % planet.Height);
-
-            return rover.WithPosition(newPositionOnPlanet);
+            
+            return new Result.Success(rover.WithPosition(newPositionOnPlanet));
         }
 
         private class PositionDelta
