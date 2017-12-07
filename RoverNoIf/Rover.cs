@@ -1,4 +1,4 @@
-﻿using System;
+﻿using RoverNoIf.Commands;
 
 namespace RoverNoIf
 {
@@ -13,9 +13,19 @@ namespace RoverNoIf
             Heading = heading;
         }
 
-        public Rover Move(string command)
+        public Rover Move(string commands)
         {
-            throw new NotImplementedException();
+            return Move(this, commands);
+        }
+
+        public static Rover Move(Rover rover, string commands)
+        {
+            foreach (var c in commands)
+            {
+                rover = CommandsMapping.Commands[c].Apply(rover);
+            }
+
+            return rover;
         }
     }
 }

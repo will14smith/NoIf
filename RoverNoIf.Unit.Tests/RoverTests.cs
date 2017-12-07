@@ -25,7 +25,7 @@ namespace RoverNoIf.Unit.Tests
         [InlineData(0, 0, Heading.South, "B", 1, 0, Heading.South)]
         [InlineData(0, 1, Heading.West, "F", 0, 0, Heading.West)]
         [InlineData(0, 0, Heading.West, "B", 0, 1, Heading.West)]
-
+        
         public void Move(int initialX, int initialY, Heading initialHeading, string command, int expectedX, int expectedY, Heading expectedHeading)
         {
             var initial = new Rover(new Position(initialX, initialY), initialHeading);
