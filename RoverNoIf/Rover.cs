@@ -7,10 +7,13 @@ namespace RoverNoIf
         public Position Position { get; }
         public Heading Heading { get; }
 
-        public Rover(Position position, Heading heading)
+        public ObstacleScanner ObstacleScanner { get; }
+        
+        public Rover(Position position, Heading heading, ObstacleScanner obstacleScanner)
         {
             Position = position;
             Heading = heading;
+            ObstacleScanner = obstacleScanner;
         }
 
         public Rover WithPosition(Position position)

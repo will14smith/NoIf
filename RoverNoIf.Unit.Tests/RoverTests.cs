@@ -8,12 +8,14 @@ namespace RoverNoIf.Unit.Tests
         public const int PlanetHeight = 100;
         public static readonly Planet Pluto = new Planet(PlanetWidth, PlanetHeight);
 
+        public static readonly ObstacleScanner FlatPlanet = new ObstacleScanner(new Obstacle[0]);
+
         [Fact]
         public void InitialPosition()
         {
             var position = new Position(Pluto, 0, 0);
             var heading = Heading.North;
-            var rover = new Rover(position, heading);
+            var rover = new Rover(position, heading, FlatPlanet);
 
             rover.ShouldBeAt(position);
             rover.ShouldHaveHeading(heading);
@@ -46,12 +48,24 @@ namespace RoverNoIf.Unit.Tests
 
         public void Move(int initialX, int initialY, Heading initialHeading, string command, int expectedX, int expectedY, Heading expectedHeading)
         {
-            var initial = new Rover(new Position(Pluto, initialX, initialY), initialHeading);
+            var initial = new Rover(new Position(Pluto, initialX, initialY), initialHeading, FlatPlanet);
 
             var after = initial.Move(command);
 
             after.ShouldBeAt(new Position(Pluto, expectedX, expectedY));
             after.ShouldHaveHeading(expectedHeading);
+        }
+
+        [Fact]
+        public void MoveWithObstables()
+        {
+            var bumpyPlanet = new ObstacleScanner(new[] { new Obstacle(new Position(Pluto, 2, 0)) });
+            var initial = new Rover(new Position(Pluto, 0, 0), Heading.North, bumpyPlanet);
+
+            var after = initial.Move("FF");
+
+            after.ShouldBeAt(new Position(Pluto, 1, 0));
+            after.ShouldHaveHeading(Heading.North);
         }
     }
 }
