@@ -53,7 +53,7 @@ namespace RoverNoIf.Unit.Tests
 
             var after = initial.Move(command);
 
-            Assert.IsType<Result.Success>(after);
+            Assert.IsType<CommandResult.Success>(after);
             after.Rover.ShouldBeAt(new Position(Pluto, expectedX, expectedY));
             after.Rover.ShouldHaveHeading(expectedHeading);
         }
@@ -66,7 +66,7 @@ namespace RoverNoIf.Unit.Tests
 
             var after = initial.Move("FFF");
 
-            Assert.IsType<Result.Blocked>(after);
+            Assert.IsType<CommandResult.Blocked>(after);
             after.Rover.ShouldBeAt(new Position(Pluto, 1, 0));
             after.Rover.ShouldHaveHeading(Heading.North);
         }

@@ -1,22 +1,22 @@
 ﻿namespace RoverNoIf.Results
 {
-    public abstract class Result
+    public abstract class CommandResult
     {
         public Rover Rover { get; }
 
-        protected Result(Rover rover)
+        protected CommandResult(Rover rover)
         {
             Rover = rover;
         }
 
-        public class Success : Result
+        public class Success : CommandResult
         {
             public Success(Rover rover) : base(rover)
             {
             }
         }
 
-        public class Blocked : Result
+        public class Blocked : CommandResult
         {
             public Obstacle Obstacle { get; }
 
@@ -25,5 +25,6 @@
                 Obstacle = obstacle;
             }
         }
+
     }
 }

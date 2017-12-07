@@ -5,7 +5,7 @@ namespace RoverNoIf
 {
     public class ObstacleScanner
     {
-        private delegate Result ResultFactory(Rover rover);
+        private delegate ScanResult ResultFactory();
         private readonly ResultFactory[,] _obstacles;
 
         public ObstacleScanner(Planet planet, IReadOnlyCollection<Obstacle> obstacles)
@@ -15,19 +15,19 @@ namespace RoverNoIf
             {
                 for (var y = 0; y < planet.Height; y++)
                 {
-                    _obstacles[x, y] = rover => new Result.Success(rover);
+                    _obstacles[x, y] = () => new ScanResult.Success();
                 }
             }
 
             foreach (var obstactle in obstacles)
             {
-                _obstacles[obstactle.Position.X, obstactle.Position.Y] = rover => new Result.Blocked(obstactle, rover);
+                _obstacles[obstactle.Position.X, obstactle.Position.Y] = () => new ScanResult.Blocked(obstactle);
             }
         }
 
-        public Result Scan(Rover rover)
+        public ScanResult Scan(Rover rover)
         {
-            return _obstacles[rover.Position.X, rover.Position.Y](rover);
+            return _obstacles[rover.Position.X, rover.Position.Y]();
         }
     }
 }

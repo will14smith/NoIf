@@ -25,7 +25,7 @@ namespace RoverNoIf.Commands
             _direction = direction;
         }
 
-        public override Result Apply(Rover rover)
+        public override CommandResult Apply(Rover rover)
         {
             var offset = MovementOffsets[rover.Heading];
             var transform = DirectionTransforms[_direction];
@@ -41,8 +41,12 @@ namespace RoverNoIf.Commands
 
             var newRover = rover.WithPosition(newPositionOnPlanet);
             var scanner = rover.ObstacleScanner;
+            var scanResult = scanner.Scan(newRover);
 
-            return scanner.Scan(newRover);
+            return scanResult.Select<CommandResult>(
+                success: _ => new CommandResult.Success(newRover),    
+                blocked: blocked => new CommandResult.Blocked(blocked.Obstacle, rover)
+            );
         }
 
         private class PositionDelta

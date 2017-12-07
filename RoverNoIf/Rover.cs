@@ -26,19 +26,19 @@ namespace RoverNoIf
             return new Rover(Position, heading, ObstacleScanner);
         }
 
-        public Result Move(string commands)
+        public CommandResult Move(string commands)
         {
             return Move(this, commands);
         }
 
-        public static Result Move(Rover rover, string commands)
+        public static CommandResult Move(Rover rover, string commands)
         {
             Result result = null;
             foreach (var c in commands)
             {
                 result = CommandsMapping.Commands[c].Apply(rover);
 
-                rover = ((Result.Success)result).Rover;
+                rover = result.Rover;
             }
 
             return result;

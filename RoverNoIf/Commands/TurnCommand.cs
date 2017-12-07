@@ -19,7 +19,7 @@ namespace RoverNoIf.Commands
             _direction = direction;
         }
 
-        public override Result Apply(Rover rover)
+        public override CommandResult Apply(Rover rover)
         {
             var delta = DirectionDeltas[_direction];
 
@@ -28,7 +28,7 @@ namespace RoverNoIf.Commands
 
             var newHeading = (Heading)newHeadingAsInt;
 
-            return new Result.Success(rover.WithHeading(newHeading));
+            return new CommandResult.Success(rover.WithHeading(newHeading));
         }
     }
 }
