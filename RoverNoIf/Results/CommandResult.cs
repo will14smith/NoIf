@@ -37,5 +37,20 @@
                 return new Iterator.DoneIterator();
             }
         }
+
+        public class Unknown : CommandResult
+        {
+            public char Command { get; }
+
+            public Unknown(char command, Rover rover) : base(rover)
+            {
+                Command = command;
+            }
+
+            public override Iterator GetNextIterator(Iterator current)
+            {
+                return new Iterator.DoneIterator();
+            }
+        }
     }
 }

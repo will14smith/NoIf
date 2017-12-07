@@ -8,13 +8,18 @@ namespace RoverNoIf.Commands
 
         static CommandsMapping()
         {
-            Commands = new Dictionary<char, Command>
+            var commands = new Dictionary<char, Command>();
+            for (var i = char.MinValue; i < char.MaxValue; i++)
             {
-                { 'F', new MoveCommand(MoveDirection.Forward) },
-                { 'B', new MoveCommand(MoveDirection.Backward) },
-                { 'L', new TurnCommand(TurnDirection.Left) },
-                { 'R', new TurnCommand(TurnDirection.Right) },
-            };
+                commands.Add(i, new UnknownCommand(i));
+            }
+
+            commands['f'] = commands['F'] = new MoveCommand(MoveDirection.Forward);
+            commands['b'] = commands['B'] = new MoveCommand(MoveDirection.Backward);
+            commands['l'] = commands['L'] = new TurnCommand(TurnDirection.Left);
+            commands['r'] = commands['R'] = new TurnCommand(TurnDirection.Right);
+
+            Commands = commands;
         }
     }
 }

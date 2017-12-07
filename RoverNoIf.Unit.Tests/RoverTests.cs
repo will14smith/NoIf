@@ -59,6 +59,18 @@ namespace RoverNoIf.Unit.Tests
         }
 
         [Fact]
+        public void UnknownCommand()
+        {
+            var initial = new Rover(new Position(Pluto, 0, 0), Heading.North, FlatPlanet);
+
+            var after = initial.Move("FXF");
+
+            Assert.IsType<CommandResult.Unknown>(after);
+            after.Rover.ShouldBeAt(new Position(Pluto, 1, 0));
+            after.Rover.ShouldHaveHeading(Heading.North);
+        }
+
+        [Fact]
         public void MoveWithObstables()
         {
             var bumpyPlanet = new ObstacleScanner(Pluto, new[] { new Obstacle(new Position(Pluto, 2, 0)) });
