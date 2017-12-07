@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RoverNoIf.Results
+﻿namespace RoverNoIf.Results
 {
     public abstract class Result
     {
@@ -13,6 +9,16 @@ namespace RoverNoIf.Results
             public Success(Rover rover)
             {
                 Rover = rover;
+            }
+        }
+
+        public class Blocked : Result
+        {
+            public Obstacle Obstacle { get; }
+
+            public Blocked(Obstacle obstacle)
+            {
+                Obstacle = obstacle;
             }
         }
     }

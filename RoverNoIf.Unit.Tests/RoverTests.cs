@@ -8,7 +8,7 @@ namespace RoverNoIf.Unit.Tests
         public const int PlanetHeight = 100;
         public static readonly Planet Pluto = new Planet(PlanetWidth, PlanetHeight);
 
-        public static readonly ObstacleScanner FlatPlanet = new ObstacleScanner(new Obstacle[0]);
+        public static readonly ObstacleScanner FlatPlanet = new ObstacleScanner(Pluto, new Obstacle[0]);
 
         [Fact]
         public void InitialPosition()
@@ -59,7 +59,7 @@ namespace RoverNoIf.Unit.Tests
         [Fact]
         public void MoveWithObstables()
         {
-            var bumpyPlanet = new ObstacleScanner(new[] { new Obstacle(new Position(Pluto, 2, 0)) });
+            var bumpyPlanet = new ObstacleScanner(Pluto, new[] { new Obstacle(new Position(Pluto, 2, 0)) });
             var initial = new Rover(new Position(Pluto, 0, 0), Heading.North, bumpyPlanet);
 
             var after = initial.Move("FF");
