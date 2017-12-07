@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using RoverNoIf.Commands;
+using RoverNoIf.Results;
 
 namespace RoverNoIf
 {
@@ -13,7 +13,7 @@ namespace RoverNoIf
             _obstacles = obstacles;
         }
 
-        public bool IsDirectionBlocked(Rover rover, MoveDirection direction)
+        public Result Scan(Rover rover)
         {
             throw new NotImplementedException();
         }
