@@ -4,7 +4,9 @@ namespace RoverNoIf.Unit.Tests
 {
     public class RoverTests
     {
-        public static readonly Planet Pluto = new Planet(100, 100);
+        public const int PlanetWidth = 100;
+        public const int PlanetHeight = 100;
+        public static readonly Planet Pluto = new Planet(PlanetWidth, PlanetHeight);
 
         [Fact]
         public void InitialPosition()
@@ -36,7 +38,12 @@ namespace RoverNoIf.Unit.Tests
         [InlineData(1, 1, Heading.South, "R", 1, 1, Heading.East)]
         [InlineData(1, 1, Heading.West, "L", 1, 1, Heading.North)]
         [InlineData(1, 1, Heading.West, "R", 1, 1, Heading.South)]
-        
+
+        [InlineData(0, 0, Heading.South, "F", PlanetWidth - 1, 0, Heading.South)]
+        [InlineData(0, 0, Heading.West, "F", 0, PlanetHeight - 1, Heading.West)]
+        [InlineData(PlanetWidth - 1, PlanetHeight - 1, Heading.North, "F", 0, PlanetHeight - 1, Heading.North)]
+        [InlineData(PlanetWidth - 1, PlanetHeight - 1, Heading.East, "F", PlanetWidth - 1, 0, Heading.East)]
+
         public void Move(int initialX, int initialY, Heading initialHeading, string command, int expectedX, int expectedY, Heading expectedHeading)
         {
             var initial = new Rover(new Position(Pluto, initialX, initialY), initialHeading);

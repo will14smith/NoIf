@@ -30,9 +30,15 @@ namespace RoverNoIf.Commands
             var transform = DirectionTransforms[_direction];
 
             var delta = new PositionDelta(offset.X * transform.X, offset.Y * transform.Y);
-            var newPosition = new Position(rover.Position.Planet, rover.Position.X + delta.X, rover.Position.Y + delta.Y);
+            var newPosition = new PositionDelta(rover.Position.X + delta.X, rover.Position.Y + delta.Y);
 
-            return new Rover(newPosition, rover.Heading);
+            var planet = rover.Position.Planet;
+            var newPositionOnPlanet = new Position(
+                planet: planet,
+                x: (newPosition.X + planet.Width) % planet.Width,
+                y: (newPosition.Y + planet.Height) % planet.Height);
+
+            return new Rover(newPositionOnPlanet, rover.Heading);
         }
 
         private class PositionDelta
