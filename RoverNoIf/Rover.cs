@@ -1,4 +1,6 @@
-﻿namespace RoverNoIf
+﻿using System;
+
+namespace RoverNoIf
 {
     public class Rover
     {
@@ -9,6 +11,11 @@
         {
             Position = position;
             Heading = heading;
+        }
+
+        public Rover Move(string command)
+        {
+            throw new NotImplementedException();
         }
     }
 }
