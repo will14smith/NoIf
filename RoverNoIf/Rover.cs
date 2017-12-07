@@ -13,6 +13,15 @@ namespace RoverNoIf
             Heading = heading;
         }
 
+        public Rover WithPosition(Position position)
+        {
+            return new Rover(position, Heading, ObstacleScanner);
+        }
+        public Rover WithHeading(Heading heading)
+        {
+            return new Rover(Position, heading, ObstacleScanner);
+        }
+
         public Rover Move(string commands)
         {
             return Move(this, commands);

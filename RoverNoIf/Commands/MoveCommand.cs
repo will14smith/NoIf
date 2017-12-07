@@ -38,7 +38,7 @@ namespace RoverNoIf.Commands
                 x: (newPosition.X + planet.Width) % planet.Width,
                 y: (newPosition.Y + planet.Height) % planet.Height);
 
-            return new Rover(newPositionOnPlanet, rover.Heading);
+            return rover.WithPosition(newPositionOnPlanet);
         }
 
         private class PositionDelta

@@ -27,7 +27,7 @@ namespace RoverNoIf.Commands
 
             var newHeading = (Heading)newHeadingAsInt;
 
-            return new Rover(rover.Position, newHeading);
+            return rover.WithHeading(newHeading);
         }
     }
 }
