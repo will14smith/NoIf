@@ -14,6 +14,8 @@ namespace RoverNoIf.Commands
                 commands.Add(i, new UnknownCommand(i));
             }
 
+            commands[(char) 0] = new DoneCommand();
+
             commands['f'] = commands['F'] = new MoveCommand(MoveDirection.Forward);
             commands['b'] = commands['B'] = new MoveCommand(MoveDirection.Backward);
             commands['l'] = commands['L'] = new TurnCommand(TurnDirection.Left);

@@ -52,5 +52,17 @@
                 return new Iterator.DoneIterator();
             }
         }
+
+        public class Done : CommandResult
+        {
+            public Done(Rover rover) : base(rover)
+            {
+            }
+
+            public override Iterator GetNextIterator(Iterator current)
+            {
+                return new Iterator.DoneIterator();
+            }
+        }
     }
 }

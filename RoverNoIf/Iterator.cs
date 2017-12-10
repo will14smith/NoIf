@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace RoverNoIf
 {
@@ -7,26 +8,23 @@ namespace RoverNoIf
         public abstract Iterator Next { get; }
         public abstract TState Reduce<TState>(TState initial, Func<Iterator, TState, char, TState> func);
 
-        public static Iterator Create(string commands)
-        {
-            if (string.IsNullOrEmpty(commands)) return new DoneIterator();
-            return new GoIterator(commands);
-        }
 
         public class GoIterator : Iterator
         {
-            private readonly string _commands;
+            private readonly IReadOnlyList<char> _commands;
+            private readonly int _index;
 
-            public GoIterator(string commands)
+            public GoIterator(IReadOnlyList<char> commands, int index)
             {
                 _commands = commands;
+                _index = index;
             }
 
-            public override Iterator Next => Create(_commands.Substring(1));
+            public override Iterator Next => new GoIterator(_commands, _index + 1);
 
             public override TState Reduce<TState>(TState initial, Func<Iterator, TState, char, TState> func)
             {
-                return func(this, initial, _commands[0]);
+                return func(this, initial, _commands[_index]);
             }
         }
 

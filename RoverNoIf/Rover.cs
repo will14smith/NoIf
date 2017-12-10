@@ -1,4 +1,5 @@
-﻿using RoverNoIf.Commands;
+﻿using System.Linq;
+using RoverNoIf.Commands;
 using RoverNoIf.Results;
 
 namespace RoverNoIf
@@ -33,6 +34,9 @@ namespace RoverNoIf
 
         public static CommandResult Move(Rover rover, string commands)
         {
+            var nullTerminatedCommands = commands.ToList();
+            nullTerminatedCommands.Add((char) 0);
+
             CommandResult Reduce(Iterator i, CommandResult r, char c)
             {
                 var result = CommandsMapping.Commands[c].Apply(r.Rover);
@@ -42,7 +46,9 @@ namespace RoverNoIf
                 return next.Reduce(result, Reduce);
             }
 
-            return Iterator.Create(commands).Reduce<CommandResult>(new CommandResult.Success(rover), Reduce);
+            var initial = new Iterator.GoIterator(nullTerminatedCommands, 0);
+
+            return initial.Reduce<CommandResult>(new CommandResult.Success(rover), Reduce);
         }
     }
 }
